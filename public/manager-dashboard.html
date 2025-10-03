@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم المدير</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/manager-dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- القائمة الجانبية -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="./imgs/logo simple.jpeg" alt="CodeMinds Logo" class="logo">
+                <button id="toggleSidebar" class="toggle-sidebar d-md-none">
+                    <span></span>
+                </button>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <button class="nav-link active" data-section="courses">
+                            <i class="fas fa-book"></i>
+                            <span>إدارة الكورسات</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="nav-link" data-section="students">
+                            <i class="fas fa-users"></i>
+                            <span>إدارة الطلاب</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="nav-link" data-section="instructors">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <span>إدارة المحاضرين</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="nav-link" data-section="statistics">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>الإحصائيات</span>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <span id="userName"></span>
+                <button id="logoutBtn" class="btn btn-danger">تسجيل الخروج</button>
+            </div>
+        </aside>
+
+        <!-- المحتوى الرئيسي -->
+        <main class="main-content">
+            <div id="loading" class="loading-spinner">جاري التحميل...</div>
+            
+            <!-- قسم إدارة الكورسات -->
+            <section id="courses-section" class="dashboard-section active">
+                <div class="section-header">
+                    <h2>إدارة الكورسات</h2>
+                    <button id="addCourseBtn" class="btn btn-primary">إضافة كورس جديد</button>
+                </div>
+                <div id="coursesList" class="courses-list">
+                    <!-- سيتم إضافة الكورسات هنا ديناميكياً -->
+                </div>
+            </section>
+
+            <!-- قسم إدارة الطلاب -->
+            <section id="students-section" class="dashboard-section">
+                <div class="section-header">
+                    <h2>إدارة الطلاب</h2>
+                </div>
+                <div id="studentsList">
+                    <!-- محتوى قسم الطلاب -->
+                </div>
+            </section>
+
+            <!-- قسم إدارة المحاضرين -->
+            <section id="instructors-section" class="dashboard-section">
+                <div class="section-header">
+                    <h2>إدارة المحاضرين</h2>
+                </div>
+                <div id="instructorsList">
+                    <!-- محتوى قسم المحاضرين -->
+                </div>
+            </section>
+
+            <!-- قسم الإحصائيات -->
+            <section id="statistics-section" class="dashboard-section">
+                <div class="section-header">
+                    <h2>الإحصائيات</h2>
+                </div>
+                <div class="statistics-container">
+                    <!-- محتوى قسم الإحصائيات -->
+                </div>
+            </section>
+        </main>
+
+        <!-- نموذج إضافة كورس جديد -->
+        <div id="addCourseModal" class="modal">
+            <div class="modal-content">
+                <h3>إضافة كورس جديد</h3>
+                <form id="addCourseForm">
+                    <div class="form-group">
+                        <label for="courseName">اسم الكورس</label>
+                        <input type="text" id="courseName" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="courseDescription">وصف الكورس</label>
+                        <textarea id="courseDescription" name="description" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="coursePrice">السعر</label>
+                        <input type="number" id="coursePrice" name="price" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="courseImage">صورة الكورس</label>
+                        <input type="file" id="courseImage" name="image" accept="image/*">
+                    </div>
+                    <div class="modal-buttons">
+                        <button type="submit" class="btn btn-primary">حفظ</button>
+                        <button type="button" class="btn btn-secondary" onclick="closeModal()">إلغاء</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- نموذج تعديل كورس -->
+        <div id="editCourseModal" class="modal">
+            <div class="modal-content">
+                <h3>تعديل الكورس</h3>
+                <form id="editCourseForm">
+                    <input type="hidden" id="editCourseId">
+                    <div class="form-group">
+                        <label for="editCourseName">اسم الكورس</label>
+                        <input type="text" id="editCourseName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editCourseDescription">وصف الكورس</label>
+                        <textarea id="editCourseDescription" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="editCoursePrice">السعر</label>
+                        <input type="number" id="editCoursePrice" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editCourseImage">صورة الكورس</label>
+                        <input type="file" id="editCourseImage" accept="image/*">
+                    </div>
+                    <div class="modal-buttons">
+                        <button type="submit" class="btn btn-primary">حفظ التعديلات</button>
+                        <button type="button" class="btn btn-secondary" onclick="closeEditModal()">إلغاء</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://kit.fontawesome.com/your-code.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="./js/utils.js"></script>
+    <script src="./js/manager-dashboard.js"></script>
+</body>
+</html> 

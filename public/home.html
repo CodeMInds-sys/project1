@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الرئيسية - CodeMinds</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <a href="./index.html">
+                        <img src="./imgs/logo.png" alt="CodeMinds Logo">
+                    </a>
+                </div>
+                <div id="authButtons" class="nav-buttons">
+                    <a href="./login.html" class="btn">تسجيل الدخول</a>
+                    <a href="./register.html" class="btn btn-primary">إنشاء حساب</a>
+                </div>
+                <div id="userMenu" style="display: none;">
+                    <span id="userName"></span>
+                    <button id="logoutButton" onclick="handleLogout()" class="btn" data-original-text="تسجيل الخروج">
+                        تسجيل الخروج
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1>تعلم البرمجة مع CodeMinds</h1>
+                <p class="hero-text">منصة تعليمية متكاملة لتعلم البرمجة وتطوير المهارات</p>
+                <div class="hero-buttons">
+                    <a href="./register.html" class="btn btn-primary">ابدأ الآن مجاناً</a>
+                    <a href="#features" class="btn btn-secondary">تعرف على المزيد</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features-section">
+            <div class="container">
+                <h2 class="section-title">مميزات المنصة</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h3>دورات تعليمية</h3>
+                        <p>دورات متنوعة في مختلف مجالات البرمجة</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>تدريب عملي</h3>
+                        <p>تطبيق عملي ومشاريع واقعية</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>شهادات معتمدة</h3>
+                        <p>احصل على شهادات معتمدة بعد إتمام الدورات</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <section class="courses-section">
+        <div class="container">
+            <h2 class="section-title">كورساتنا</h2>
+            <div class="courses-grid">
+                <!-- سيتم إضافة كورسات هنا ديناميكياً -->
+            </div>
+        </div>  
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="./js/utils/logger.js"></script>
+    <script src="./js/utils.js"></script>
+    <script src="./js/home.js"></script>
+</body>
+</html> 

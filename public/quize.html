@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>اختبار OOP في C++</title>
+  <style>
+    :root {
+      --primary-color: #4a6fa5;
+      --secondary-color: #166088;
+      --accent-color: #4fc3dc;
+      --text-color: #333;
+      --light-bg: #f8f9fa;
+      --white: #ffffff;
+      --correct: #28a745;
+      --incorrect: #dc3545;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--light-bg);
+      padding: 20px;
+      direction: rtl;
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+    
+    .quiz-container {
+      background: var(--white);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      max-width: 850px;
+      margin: 20px auto;
+    }
+    
+    h2 {
+      color: var(--primary-color);
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 28px;
+      border-bottom: 2px solid var(--accent-color);
+      padding-bottom: 10px;
+    }
+    
+    .question {
+      margin-bottom: 30px;
+      padding: 20px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      background-color: var(--light-bg);
+      transition: transform 0.2s;
+    }
+    
+    .question:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+    }
+    
+    .question p {
+      margin-bottom: 15px;
+      font-weight: bold;
+      color: var(--secondary-color);
+      font-size: 18px;
+    }
+    
+    pre {
+      background-color: #f1f1f1;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      direction: ltr;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 15px;
+      font-family: 'Courier New', monospace;
+    }
+    
+    label {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    label:hover {
+      background-color: #e9ecef;
+    }
+    
+    input[type="radio"] {
+      margin-left: 10px;
+    }
+    
+    button {
+      padding: 12px 25px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: green;
+    }
+    .timer-container {
+      position: sticky;
+      top: 10px;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto 20px;
+  height: 30px;
+  background-color: #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+
+#progressBar {
+  width: 100%;
+  height: 100%;
+  background-color: green;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  line-height: 30px;
+  transition: width 1s linear, background-color 0.5s;
+}
+
+#progressText {
+  position: relative;
+  z-index: 2;
+}
+
+.correct-answer {
+  background-color: #d4edda !important;
+  border: 2px solid #28a745 !important;
+}
+.incorrect-answer {
+  background-color: #f8d7da !important;
+  border: 2px solid #dc3545 !important;
+}
+
+  </style>
+</head>
+<body>
+  <div class="timer-container">
+    <div id="progressBar">
+      <span id="progressText">10:00</span>
+    </div>
+  </div>
+  
+  <audio id="tickSound" src="https://www.soundjay.com/clock/sounds/clock-ticking-2.mp3"></audio>
+
+<div class="quiz-container">
+  <h2>اختبار C++ OOP</h2>
+
+  <form id="quizForm">
+
+    <!-- سؤال 1 -->
+    <div class="question">
+      <p><strong>1. ما ناتج تنفيذ الكود التالي؟</strong></p>
+      <pre>
+class MyClass {
+private:
+    int x;
+
+public:
+    void setX(int val) {
+        x = val;
+    }
+
+    int getX() {
+        return x;
+    }
+};
+
+int main() {
+    MyClass obj;
+    obj.setX(10);
+    cout << obj.getX();
+}</pre>
+      <label><input type="radio" name="q1" value="A"> A) 0</label><br>
+      <label><input type="radio" name="q1" value="B"> B) 10</label><br>
+      <label><input type="radio" name="q1" value="C"> C) خطأ في الكومبايل</label><br>
+      <label><input type="radio" name="q1" value="D"> D) لا شيء يُطبع</label>
+    </div>
+
+    <!-- سؤال 2 -->
+    <div class="question">
+      <p><strong>2. ما الإخراج المتوقع؟</strong></p>
+      <pre>
+class Test {
+public:
+    Test() { cout << "Default constructor\n"; }
+    Test(int x) { cout << "Parameterized constructor\n"; }
+};
+
+int main() {
+    Test a;
+    Test b(5);
+}</pre>
+      <label><input type="radio" name="q2" value="A"> A) Default constructor</label><br>
+      <label><input type="radio" name="q2" value="B"> B) Parameterized constructor</label><br>
+      <label><input type="radio" name="q2" value="C"> C) Default constructor + Parameterized constructor</label><br>
+      <label><input type="radio" name="q2" value="D"> D) خطأ في الكومبايل</label>
+    </div>
+
+    <!-- سؤال 3 -->
+    <div class="question">
+      <p><strong>3. ما الذي سيتم طباعته؟</strong></p>
+      <pre>
+class Base {
+public:
+    void show() { cout << "Base\n"; }
+};
+
+class Derived : public Base {
+public:
+    void show() { cout << "Derived\n"; }
+};
+
+int main() {
+    Derived d;
+    d.show();
+}</pre>
+      <label><input type="radio" name="q3" value="A"> A) Base</label><br>
+      <label><input type="radio" name="q3" value="B"> B) Derived</label><br>
+      <label><input type="radio" name="q3" value="C"> C) لا شيء</label><br>
+      <label><input type="radio" name="q3" value="D"> D) خطأ في الكومبايل</label>
+    </div>
+
+    <!-- سؤال 4 -->
+    <div class="question">
+      <p><strong>4. ما ناتج الطباعة؟</strong></p>
+      <pre>
+class Counter {
+public:
+    static int count;
+    Counter() { count++; }
+};
+
+int Counter::count = 0;
+
+int main() {
+    Counter a, b, c;
+    cout << Counter::count;
+}</pre>
+      <label><input type="radio" name="q4" value="A"> A) 1</label><br>
+      <label><input type="radio" name="q4" value="B"> B) 2</label><br>
+      <label><input type="radio" name="q4" value="C"> C) 3</label><br>
+      <label><input type="radio" name="q4" value="D"> D) 0</label>
+    </div>
+
+    <!-- سؤال 5 -->
+    <div class="question">
+      <p><strong>5. ما هو ناتج التنفيذ؟</strong></p>
+      <pre>
+class A {
+public:
+    A() { cout << "A "; }
+};
+
+class B : public A {
+public:
+    B() { cout << "B "; }
+};
+
+int main() {
+    B obj;
+}</pre>
+      <label><input type="radio" name="q5" value="A"> A) A B</label><br>
+      <label><input type="radio" name="q5" value="B"> B) B A</label><br>
+      <label><input type="radio" name="q5" value="C"> C) B فقط</label><br>
+      <label><input type="radio" name="q5" value="D"> D) خطأ في الكومبايل</label>
+    </div>
+
+    <!-- سؤال 6 -->
+<div class="question">
+  <p><strong>6. ما الإخراج المتوقع من الكود التالي؟</strong></p>
+  <pre>
+class Sample {
+private:
+    int x = 5;
+public:
+    void printX() {
+        cout << x;
+    }
+};
+
+int main() {
+    Sample s;
+    s.printX();
+}</pre>
+  <label><input type="radio" name="q6" value="A"> A) 0</label><br>
+  <label><input type="radio" name="q6" value="B"> B) 5</label><br>
+  <label><input type="radio" name="q6" value="C"> C) خطأ لأن x private</label><br>
+  <label><input type="radio" name="q6" value="D"> D) لا شيء يُطبع</label>
+</div>
+
+<!-- سؤال 7 -->
+<div class="question">
+  <p><strong>7. ماذا يحدث عند تنفيذ الكود التالي؟</strong></p>
+  <pre>
+class Base {
+protected:
+    int x = 10;
+};
+
+class Derived : public Base {
+public:
+    void show() {
+        cout << x;
+    }
+};
+
+int main() {
+    Derived d;
+    d.show();
+}</pre>
+  <label><input type="radio" name="q7" value="A"> A) 10</label><br>
+  <label><input type="radio" name="q7" value="B"> B) خطأ لأن x private</label><br>
+  <label><input type="radio" name="q7" value="C"> C) لا شيء يُطبع</label><br>
+  <label><input type="radio" name="q7" value="D"> D) خطأ في الوراثة</label>
+</div>
+
+<!-- سؤال 8 -->
+<div class="question">
+  <p><strong>8. ما الذي يتم طباعته؟</strong></p>
+  <pre>
+class Math {
+public:
+    int add(int a, int b) {
+        return a + b;
+    }
+
+    double add(double a, double b) {
+        return a + b + 0.5;
+    }
+};
+
+int main() {
+    Math m;
+    cout << m.add(2, 3) << " " << m.add(2.0, 3.0);
+}</pre>
+  <label><input type="radio" name="q8" value="A"> A) 5 5</label><br>
+  <label><input type="radio" name="q8" value="B"> B) 5 5.5</label><br>
+  <label><input type="radio" name="q8" value="C"> C) 5.5 5</label><br>
+  <label><input type="radio" name="q8" value="D"> D) خطأ لأن add مكررة</label>
+</div>
+
+<!-- سؤال 9 -->
+<div class="question">
+  <p><strong>9. أي من التالي صحيح بخصوص access modifiers في C++؟</strong></p>
+  <label><input type="radio" name="q9" value="A"> A) public يعني لا يمكن الوصول له من الخارج</label><br>
+  <label><input type="radio" name="q9" value="B"> B) private يعني يمكن الوصول له من الكلاسات المشتقة</label><br>
+  <label><input type="radio" name="q9" value="C"> C) protected يمكن الوصول له من الكلاسات المشتقة</label><br>
+  <label><input type="radio" name="q9" value="D"> D) جميع ما سبق</label>
+</div>
+
+<!-- سؤال 10 -->
+<!-- سؤال 10 -->
+<div class="question">
+  <p><strong>10. ما الإخراج المتوقع؟</strong></p>
+  <pre>
+class Animal {
+public:
+    void sound() {
+        cout << "Animal sound ";
+    }
+};
+
+class Dog : public Animal {
+public:
+    void sound() {
+        cout << "Dog bark ";
+    }
+};
+
+int main() {
+    Dog d;
+    d.sound();
+}</pre>
+  <label><input type="radio" name="q10" value="A"> A) Animal sound</label><br>
+  <label><input type="radio" name="q10" value="B"> B) Dog bark</label><br>
+  <label><input type="radio" name="q10" value="C"> C) Animal sound Dog bark</label><br>
+  <label><input type="radio" name="q10" value="D"> D) خطأ في الكود</label>
+</div>
+
+
+    <button type="button" onclick="checkAnswers()">عرض النتيجة</button>
+    <div class="result" id="result"></div>
+
+  </form>
+</div>
+<script>
+  const answers = {
+    q1: "B",
+    q2: "C",
+    q3: "B",
+    q4: "C",
+    q5: "A",
+    q6: "B",
+    q7: "A",
+    q8: "B",
+    q9: "C",
+    q10: "B"
+  };
+
+  let score = 0;
+  let totalTime = 600; // 10 دقائق
+  let timeLeft = totalTime;
+
+  const resultDiv = document.getElementById("result");
+  const quizButton = document.querySelector("button");
+  const progressBar = document.getElementById("progressBar");
+  const progressText = document.getElementById("progressText");
+
+  function formatTime(seconds) {
+    const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+    const s = (seconds % 60).toString().padStart(2, '0');
+    return `${m}:${s}`;
+  }
+
+  function updateProgressBar() {
+    let percent = (timeLeft / totalTime) * 100;
+    progressBar.style.width = percent + "%";
+    progressText.innerText = formatTime(timeLeft);
+
+    if (percent > 60) {
+      progressBar.style.backgroundColor = "green";
+    } else if (percent > 30) {
+      progressBar.style.backgroundColor = "orange";
+    } else {
+      progressBar.style.backgroundColor = "red";
+    }
+  }
+
+  function startTimer() {
+    const interval = setInterval(() => {
+      timeLeft--;
+      document.getElementById("tickSound").play();
+
+      updateProgressBar();
+
+      if (timeLeft <= 0) {
+        clearInterval(interval);
+        quizButton.disabled = true;
+        resultDiv.style.color = "red";
+        resultDiv.innerText = "انتهى الوقت ⌛";
+      }
+    }, 1000);
+  }
+
+function checkAnswers() {
+  score = 0;
+  // Remove previous highlights
+  document.querySelectorAll('label').forEach(label => {
+    label.classList.remove('correct-answer', 'incorrect-answer');
+  });
+
+  for (let key in answers) {
+    const correctValue = answers[key];
+    const options = document.querySelectorAll(`input[name="${key}"]`);
+    let userSelected = null;
+
+    options.forEach(option => {
+      const label = option.parentElement;
+      if (option.checked) {
+        userSelected = option.value;
+      }
+      // Highlight the correct answer
+      if (option.value === correctValue) {
+        label.classList.add('correct-answer');
+      }
+    });
+
+    // If user selected and it's wrong, highlight their wrong answer
+    if (userSelected && userSelected !== correctValue) {
+      const wrongOption = document.querySelector(`input[name="${key}"][value="${userSelected}"]`);
+      if (wrongOption) {
+        wrongOption.parentElement.classList.add('incorrect-answer');
+      }
+    }
+
+    // Score calculation
+    if (userSelected === correctValue) {
+      score++;
+    }
+  }
+  resultDiv.style.color = "green";
+  resultDiv.innerText = `درجتك: ${score} من 10`;
+}
+
+  window.onload = () => {
+    updateProgressBar();
+    startTimer();
+  };
+</script>
+
+</body>
+</html>

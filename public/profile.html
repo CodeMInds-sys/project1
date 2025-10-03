@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الملف الشخصي</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="loading" class="loading-spinner">جاري التحميل...</div>
+        
+        <div id="profileContent" style="display: none;">
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <img id="userAvatar" src="./images/default-avatar.png" alt="الصورة الشخصية">
+                    <button class="change-avatar-btn" onclick="changeAvatar()">تغيير الصورة</button>
+                </div>
+                <h1 id="userNameHeader"></h1>
+            </div>
+            
+            <div class="profile-tabs">
+                <button class="tab-btn active" data-tab="personal">المعلومات الشخصية</button>
+                <button class="tab-btn" data-tab="security">الأمان</button>
+                <button class="tab-btn" data-tab="preferences">التفضيلات</button>
+            </div>
+
+            <div class="tab-content" id="personal">
+                <div class="profile-section">
+                    <h3>المعلومات الشخصية</h3>
+                    <div class="info-group editable">
+                        <label>الاسم:</label>
+                        <span id="userName" class="editable-field"></span>
+                        <button class="edit-btn">تعديل</button>
+                    </div>
+                    <div class="info-group editable">
+                        <label>البريد الإلكتروني:</label>
+                        <span id="userEmail"></span>
+                        <div id="emailVerification"></div>
+                    </div>
+                    <div class="info-group editable">
+                        <label>رقم الهاتف:</label>
+                        <span id="userPhone" class="editable-field"></span>
+                        <button class="edit-btn">تعديل</button>
+                    </div>
+                    <div class="info-group editable">
+                        <label>العنوان:</label>
+                        <span id="userAddress" class="editable-field"></span>
+                        <button class="edit-btn">تعديل</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="security" style="display: none;">
+                <div class="profile-section">
+                    <h3>إعدادات الأمان</h3>
+                    <div class="info-group">
+                        <label>كلمة المرور:</label>
+                        <button class="btn btn-primary" onclick="changePassword()">تغيير كلمة المرور</button>
+                    </div>
+                    <div class="info-group">
+                        <label>التحقق بخطوتين:</label>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="twoFactorAuth">
+                            <label for="twoFactorAuth"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="preferences" style="display: none;">
+                <div class="profile-section">
+                    <h3>التفضيلات</h3>
+                    <div class="info-group">
+                        <label>اللغة المفضلة:</label>
+                        <select id="preferredLanguage">
+                            <option value="ar">العربية</option>
+                            <option value="en">English</option>
+                        </select>
+                    </div>
+                    <div class="info-group">
+                        <label>الإشعارات:</label>
+                        <div class="notifications-settings">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="emailNotifications">
+                                <label for="emailNotifications">إشعارات البريد الإلكتروني</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="pushNotifications">
+                                <label for="pushNotifications">إشعارات الموقع</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-actions">
+                <button onclick="saveChanges()" class="btn btn-primary">حفظ التغييرات</button>
+                <button onclick="utils.logout()" class="btn btn-danger">تسجيل الخروج</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/utils.js"></script>
+    <script src="./js/profile.js"></script> 
+</body>
+</html>
