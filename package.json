@@ -22,6 +22,6 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "build": "node index.js"
+    "build": "echo 'Skipping build step on Railway 🚀'"
   }
 }
