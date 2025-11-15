@@ -1,0 +1,1712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopGlobal - Your Online Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #4CAF50;
+            --primary-dark: #388E3C;
+            --primary-light: #C8E6C9;
+            --secondary: #f8f9fa;
+            --dark: #2E3A40;
+            --light: #f8f9fa;
+            --success: #4CAF50;
+            --danger: #F44336;
+            --warning: #FFC107;
+            --gray: #6c757d;
+            --border: #E0E0E0;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --background: #F9FDF9;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 8px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-actions button {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            margin-left: 15px;
+            cursor: pointer;
+            color: var(--dark);
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--danger);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Main Content Styles */
+        main {
+            padding: 30px 0;
+            min-height: calc(100vh - 160px);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary), #6BCF6F);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 40px;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 25px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Product Grid */
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            height: 200px;
+            background-color: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 15px;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .product-rating {
+            color: var(--warning);
+            margin-bottom: 15px;
+        }
+
+        .product-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Auth Page Styles */
+        .auth-container {
+            display: flex;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary-light), white);
+        }
+
+        .auth-box {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 450px;
+            padding: 40px;
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--gray);
+            transition: all 0.3s;
+        }
+
+        .auth-tab.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-footer {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .form-footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Role Selection Styles */
+        .role-selection {
+            margin-bottom: 20px;
+        }
+
+        .role-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .role-option {
+            padding: 15px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .role-option:hover {
+            border-color: var(--primary);
+        }
+
+        .role-option.selected {
+            border-color: var(--primary);
+            background-color: var(--primary-light);
+        }
+
+        .role-option i {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+
+        .role-option.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        /* Cart Styles */
+        .cart-items {
+            margin-bottom: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .cart-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .cart-item-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            background-color: var(--secondary);
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .quantity-input {
+            width: 40px;
+            text-align: center;
+            margin: 0 10px;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            padding: 5px;
+        }
+
+        .remove-item {
+            color: var(--danger);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .cart-summary {
+            background-color: var(--secondary);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .summary-total {
+            font-weight: 700;
+            font-size: 1.2rem;
+            border-top: 1px solid var(--border);
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+
+        /* Profile Styles */
+        .profile-container {
+            display: flex;
+            gap: 30px;
+        }
+
+        .profile-sidebar {
+            width: 250px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            padding: 20px;
+        }
+
+        .profile-menu {
+            list-style: none;
+        }
+
+        .profile-menu li {
+            margin-bottom: 10px;
+        }
+
+        .profile-menu a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: var(--dark);
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .profile-menu a.active, .profile-menu a:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .profile-content {
+            flex: 1;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            padding: 30px;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-right: 20px;
+        }
+
+        .profile-info h2 {
+            margin-bottom: 5px;
+        }
+
+        .profile-info p {
+            color: var(--gray);
+        }
+
+        /* Payment Methods */
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .payment-method {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        .payment-method:hover {
+            border-color: var(--primary);
+        }
+
+        .payment-method.selected {
+            border-color: var(--primary);
+            background-color: var(--primary-light);
+        }
+
+        .payment-icon {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            color: var(--primary);
+        }
+
+        .payment-details {
+            flex: 1;
+        }
+
+        .payment-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .payment-description {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Search Styles */
+        .search-container {
+            position: relative;
+            margin-right: 15px;
+        }
+
+        .search-input {
+            width: 0;
+            padding: 0;
+            border: none;
+            border-radius: 20px;
+            background-color: var(--secondary);
+            transition: all 0.3s;
+            opacity: 0;
+        }
+
+        .search-input.active {
+            width: 200px;
+            padding: 8px 15px;
+            opacity: 1;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 40px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #495057;
+            color: #adb5bd;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                padding: 15px 0;
+            }
+
+            nav ul {
+                margin: 15px 0;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .profile-container {
+                flex-direction: column;
+            }
+
+            .profile-sidebar {
+                width: 100%;
+            }
+
+            .auth-box {
+                padding: 30px 20px;
+            }
+
+            .role-options {
+                grid-template-columns: 1fr;
+            }
+
+            .search-input.active {
+                width: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Authentication Page (shown first) -->
+    <div id="auth-page" class="auth-container">
+        <div class="auth-box">
+            <div class="logo" style="justify-content: center; margin-bottom: 30px;">
+                <i class="fas fa-shopping-bag"></i>
+                ShopGlobal
+            </div>
+            
+            <div class="auth-tabs">
+                <div class="auth-tab active" data-tab="login">Login</div>
+                <div class="auth-tab" data-tab="register">Register</div>
+            </div>
+            
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form active">
+                <div class="form-group">
+                    <label for="login-email">Email Address</label>
+                    <input type="email" id="login-email" class="form-control" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" class="form-control" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Login</button>
+                <div class="form-footer">
+                    <p>Don't have an account? <a href="#" id="show-register">Register here</a></p>
+                </div>
+            </form>
+            
+            <!-- Register Form -->
+            <form id="register-form" class="auth-form">
+                <div class="form-group">
+                    <label for="register-name">Full Name</label>
+                    <input type="text" id="register-name" class="form-control" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email Address</label>
+                    <input type="email" id="register-email" class="form-control" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" class="form-control" placeholder="Create a password" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm">Confirm Password</label>
+                    <input type="password" id="register-confirm" class="form-control" placeholder="Confirm your password" required>
+                </div>
+                
+                <!-- Role Selection -->
+                <div class="form-group role-selection">
+                    <label>Select Your Role</label>
+                    <div class="role-options">
+                        <div class="role-option selected" data-role="user">
+                            <i class="fas fa-user"></i>
+                            <div>User</div>
+                        </div>
+                        <div class="role-option disabled" data-role="seller">
+                            <i class="fas fa-store"></i>
+                            <div>Seller</div>
+                            <small>(Coming Soon)</small>
+                        </div>
+                        <div class="role-option disabled" data-role="manager">
+                            <i class="fas fa-user-tie"></i>
+                            <div>Manager</div>
+                            <small>(Coming Soon)</small>
+                        </div>
+                        <div class="role-option disabled" data-role="admin">
+                            <i class="fas fa-user-shield"></i>
+                            <div>Admin</div>
+                            <small>(Coming Soon)</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn" style="width: 100%;">Register</button>
+                <div class="form-footer">
+                    <p>Already have an account? <a href="#" id="show-login">Login here</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Website (hidden until authentication) -->
+    <div id="main-website" style="display: none;">
+        <!-- Header -->
+        <header>
+            <div class="container header-container">
+                <a href="#" class="logo">
+                    <i class="fas fa-shopping-bag"></i>
+                    ShopGlobal
+                </a>
+                
+                <nav>
+                    <ul>
+                        <li><a href="#" class="active">Home</a></li>
+                        <li><a href="#">Products</a></li>
+                        <li><a href="#">Categories</a></li>
+                        <li><a href="#">Deals</a></li>
+                        <li><a href="#">About</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="header-actions">
+                    <div class="search-container">
+                        <input type="text" class="search-input" placeholder="Search products...">
+                        <button id="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <button id="user-btn">
+                        <i class="fas fa-user"></i>
+                    </button>
+                    <button id="cart-btn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </button>
+                    <button id="logout-btn" class="btn-outline" style="margin-left: 15px; padding: 5px 10px;">
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <h1>Welcome to ShopGlobal</h1>
+                <p>Discover amazing products from around the world with fast delivery and secure payment options.</p>
+                <a href="#" class="btn">Shop Now</a>
+            </section>
+
+            <!-- Featured Products -->
+            <section>
+                <h2 class="section-title">Featured Products</h2>
+                <div class="products-grid" id="products-grid">
+                    <!-- Products will be dynamically added here -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-column">
+                        <h3>ShopGlobal</h3>
+                        <p>Your one-stop destination for all your shopping needs. Quality products, great prices, and excellent service.</p>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Quick Links</h3>
+                        <ul>
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">Products</a></li>
+                            <li><a href="#">Categories</a></li>
+                            <li><a href="#">Deals</a></li>
+                            <li><a href="#">About Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Customer Service</h3>
+                        <ul>
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">Shipping Policy</a></li>
+                            <li><a href="#">Returns & Refunds</a></li>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Contact Info</h3>
+                        <ul>
+                            <li><i class="fas fa-map-marker-alt"></i> 123 Commerce St, City, Country</li>
+                            <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                            <li><i class="fas fa-envelope"></i> support@shopglobal.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2023 ShopGlobal. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Cart Modal -->
+        <div id="cart-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>Your Shopping Cart</h2>
+                <div class="cart-items" id="cart-items">
+                    <!-- Cart items will be dynamically added here -->
+                </div>
+
+                <div class="cart-summary">
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span id="cart-subtotal">$0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Shipping:</span>
+                        <span id="cart-shipping">$0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Tax:</span>
+                        <span id="cart-tax">$0.00</span>
+                    </div>
+                    <div class="summary-row summary-total">
+                        <span>Total:</span>
+                        <span id="cart-total">$0.00</span>
+                    </div>
+                </div>
+
+                <button class="btn" id="checkout-btn" style="width: 100%; margin-top: 20px;">Proceed to Checkout</button>
+            </div>
+        </div>
+
+        <!-- Profile Modal -->
+        <div id="profile-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <div class="profile-container">
+                    <div class="profile-sidebar">
+                        <ul class="profile-menu">
+                            <li><a href="#" class="active">Personal Information</a></li>
+                            <li><a href="#">Address Book</a></li>
+                            <li><a href="#">Order History</a></li>
+                            <li><a href="#">Payment Methods</a></li>
+                            <li><a href="#">Security</a></li>
+                        </ul>
+                    </div>
+                    <div class="profile-content">
+                        <div class="profile-header">
+                            <div class="profile-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="profile-info">
+                                <h2 id="profile-name">Guest User</h2>
+                                <p id="profile-email-display">Please log in</p>
+                                <p id="profile-role-display" class="role-badge"></p>
+                            </div>
+                        </div>
+
+                        <form id="profile-form">
+                            <div class="form-group">
+                                <label for="profile-name-input">Full Name</label>
+                                <input type="text" id="profile-name-input" class="form-control" value="Guest User">
+                            </div>
+                            <div class="form-group">
+                                <label for="profile-email">Email Address</label>
+                                <input type="email" id="profile-email" class="form-control" value="guest@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="profile-phone">Phone Number</label>
+                                <input type="tel" id="profile-phone" class="form-control" value="+1 (555) 123-4567">
+                            </div>
+                            <div class="form-group">
+                                <label for="profile-address">Address</label>
+                                <textarea id="profile-address" class="form-control" rows="3">123 Main Street, Apt 4B, New York, NY 10001</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Account Type</label>
+                                <input type="text" id="profile-role" class="form-control" value="User" disabled>
+                            </div>
+                            <button type="submit" class="btn" id="profile-save-btn">Save Changes</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Modal -->
+        <div id="payment-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>Select Payment Method</h2>
+                
+                <div class="payment-methods">
+                    <div class="payment-method selected" data-method="card">
+                        <div class="payment-icon">
+                            <i class="fab fa-cc-visa"></i>
+                        </div>
+                        <div class="payment-details">
+                            <div class="payment-title">Credit/Debit Card</div>
+                            <div class="payment-description">Pay with Visa, Mastercard, or American Express</div>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-method" data-method="paypal">
+                        <div class="payment-icon">
+                            <i class="fab fa-paypal"></i>
+                        </div>
+                        <div class="payment-details">
+                            <div class="payment-title">PayPal</div>
+                            <div class="payment-description">Pay securely with your PayPal account</div>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-method" data-method="bank">
+                        <div class="payment-icon">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <div class="payment-details">
+                            <div class="payment-title">Bank Transfer</div>
+                            <div class="payment-description">Transfer money directly from your bank account</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="card-payment-form">
+                    <div class="form-group">
+                        <label for="card-number">Card Number</label>
+                        <input type="text" id="card-number" class="form-control" placeholder="1234 5678 9012 3456">
+                    </div>
+                    
+                    <div style="display: flex; gap: 15px;">
+                        <div class="form-group" style="flex: 1;">
+                            <label for="card-expiry">Expiry Date</label>
+                            <input type="text" id="card-expiry" class="form-control" placeholder="MM/YY">
+                        </div>
+                        
+                        <div class="form-group" style="flex: 1;">
+                            <label for="card-cvc">CVC</label>
+                            <input type="text" id="card-cvc" class="form-control" placeholder="123">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="card-name">Name on Card</label>
+                        <input type="text" id="card-name" class="form-control" placeholder="John Doe">
+                    </div>
+                </div>
+                
+                <button class="btn" id="complete-payment-btn" style="width: 100%; margin-top: 20px;">Complete Payment</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const authPage = document.getElementById('auth-page');
+        const mainWebsite = document.getElementById('main-website');
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const authTabs = document.querySelectorAll('.auth-tab');
+        const authForms = document.querySelectorAll('.auth-form');
+        const showRegister = document.getElementById('show-register');
+        const showLogin = document.getElementById('show-login');
+        const roleOptions = document.querySelectorAll('.role-option');
+        
+        const cartModal = document.getElementById('cart-modal');
+        const profileModal = document.getElementById('profile-modal');
+        const paymentModal = document.getElementById('payment-modal');
+        const userBtn = document.getElementById('user-btn');
+        const cartBtn = document.getElementById('cart-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        const searchBtn = document.getElementById('search-btn');
+        const searchInput = document.querySelector('.search-input');
+        const closeButtons = document.querySelectorAll('.close-modal');
+        const profileForm = document.getElementById('profile-form');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        const completePaymentBtn = document.getElementById('complete-payment-btn');
+        const paymentMethods = document.querySelectorAll('.payment-method');
+        const productsGrid = document.getElementById('products-grid');
+        const cartItemsContainer = document.getElementById('cart-items');
+        const cartCount = document.querySelector('.cart-count');
+        const cartSubtotal = document.getElementById('cart-subtotal');
+        const cartShipping = document.getElementById('cart-shipping');
+        const cartTax = document.getElementById('cart-tax');
+        const cartTotal = document.getElementById('cart-total');
+        const profileName = document.getElementById('profile-name');
+        const profileEmailDisplay = document.getElementById('profile-email-display');
+        const profileRoleDisplay = document.getElementById('profile-role-display');
+        const profileNameInput = document.getElementById('profile-name-input');
+        const profileEmail = document.getElementById('profile-email');
+        const profilePhone = document.getElementById('profile-phone');
+        const profileAddress = document.getElementById('profile-address');
+        const profileRole = document.getElementById('profile-role');
+
+        // Mock data
+        const products = [
+            { id: 1, name: "Wireless Bluetooth Headphones", price: 79.99, image: "https://via.placeholder.com/300", rating: 4.5 },
+            { id: 2, name: "Smart Fitness Watch", price: 129.99, image: "https://via.placeholder.com/300", rating: 4.0 },
+            { id: 3, name: "Portable Bluetooth Speaker", price: 49.99, image: "https://via.placeholder.com/300", rating: 5.0 },
+            { id: 4, name: "Smartphone with Dual Camera", price: 399.99, image: "https://via.placeholder.com/300", rating: 4.5 },
+            { id: 5, name: "Laptop Backpack", price: 39.99, image: "https://via.placeholder.com/300", rating: 4.2 },
+            { id: 6, name: "Wireless Mouse", price: 24.99, image: "https://via.placeholder.com/300", rating: 4.7 },
+            { id: 7, name: "Mechanical Keyboard", price: 89.99, image: "https://via.placeholder.com/300", rating: 4.8 },
+            { id: 8, name: "4K Monitor", price: 299.99, image: "https://via.placeholder.com/300", rating: 4.6 }
+        ];
+
+        // Application state
+        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let users = JSON.parse(localStorage.getItem('users')) || [
+            { 
+                id: 1, 
+                name: "Demo User", 
+                email: "demo@example.com", 
+                password: "password123", 
+                phone: "+1 (555) 123-4567", 
+                                address: "123 Main Street, Apt 4B, New York, NY 10001", 
+                role: "user" 
+            }
+        ];
+
+        // Initialize the application
+        function init() {
+            // Check if user is already logged in
+            if (currentUser) {
+                showMainWebsite();
+            } else {
+                showAuthPage();
+            }
+            
+            // Set up event listeners
+            setupEventListeners();
+        }
+
+        // Set up all event listeners
+        function setupEventListeners() {
+            // Auth tabs
+            authTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabName = tab.dataset.tab;
+                    switchAuthTab(tabName);
+                });
+            });
+
+            // Auth form links
+            showRegister.addEventListener('click', (e) => {
+                e.preventDefault();
+                switchAuthTab('register');
+            });
+
+            showLogin.addEventListener('click', (e) => {
+                e.preventDefault();
+                switchAuthTab('login');
+            });
+
+            // Role selection
+            roleOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    if (!option.classList.contains('disabled')) {
+                        roleOptions.forEach(opt => opt.classList.remove('selected'));
+                        option.classList.add('selected');
+                    }
+                });
+            });
+
+            // Form submissions
+            loginForm.addEventListener('submit', handleLogin);
+            registerForm.addEventListener('submit', handleRegister);
+            
+            // Main website event listeners
+            userBtn.addEventListener('click', () => {
+                openModal(profileModal);
+            });
+
+            cartBtn.addEventListener('click', () => {
+                openModal(cartModal);
+            });
+
+            logoutBtn.addEventListener('click', handleLogout);
+
+            // Search functionality
+            searchBtn.addEventListener('click', toggleSearch);
+            searchInput.addEventListener('input', handleSearch);
+
+            closeButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const modal = button.closest('.modal');
+                    closeModal(modal);
+                });
+            });
+
+            // Close modal when clicking outside
+            window.addEventListener('click', (e) => {
+                if (e.target.classList.contains('modal')) {
+                    closeModal(e.target);
+                }
+            });
+
+            // Profile form
+            profileForm.addEventListener('submit', handleProfileUpdate);
+            
+            // Checkout and payment
+            checkoutBtn.addEventListener('click', handleCheckout);
+            completePaymentBtn.addEventListener('click', handlePayment);
+
+            // Payment method selection
+            paymentMethods.forEach(method => {
+                method.addEventListener('click', () => {
+                    paymentMethods.forEach(m => m.classList.remove('selected'));
+                    method.classList.add('selected');
+                });
+            });
+        }
+
+        // Switch between login and register tabs
+        function switchAuthTab(tabName) {
+            authTabs.forEach(tab => {
+                if (tab.dataset.tab === tabName) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+            
+            authForms.forEach(form => {
+                if (form.id === `${tabName}-form`) {
+                    form.classList.add('active');
+                } else {
+                    form.classList.remove('active');
+                }
+            });
+        }
+
+        // Show authentication page
+        function showAuthPage() {
+            authPage.style.display = 'flex';
+            mainWebsite.style.display = 'none';
+        }
+
+        // Show main website
+        function showMainWebsite() {
+            authPage.style.display = 'none';
+            mainWebsite.style.display = 'block';
+            renderProducts();
+            updateCartUI();
+            updateUserUI();
+        }
+
+        // Handle login
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            // Find user
+            const user = users.find(u => u.email === email && u.password === password);
+            
+            if (user) {
+                currentUser = user;
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                showMainWebsite();
+            } else {
+                alert('Invalid email or password. Please try again.');
+            }
+        }
+
+        // Handle registration
+        function handleRegister(e) {
+            e.preventDefault();
+            const name = document.getElementById('register-name').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('register-confirm').value;
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match. Please try again.');
+                return;
+            }
+            
+            // Check if user already exists
+            if (users.find(u => u.email === email)) {
+                alert('An account with this email already exists.');
+                return;
+            }
+            
+            // Get selected role with safety check
+            const selectedRoleElement = document.querySelector('.role-option.selected');
+            const selectedRole = selectedRoleElement ? selectedRoleElement.dataset.role : 'user';
+            
+            // Create new user
+            const newUser = {
+                id: Date.now(),
+                name,
+                email,
+                password,
+                phone: '',
+                address: '',
+                role: selectedRole
+            };
+            
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            currentUser = newUser;
+            localStorage.setItem('currentUser', JSON.stringify(newUser));
+            
+            alert(`Registration successful! Welcome to ShopGlobal as a ${selectedRole}.`);
+            showMainWebsite();
+        }
+
+        // Handle logout
+        function handleLogout() {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            showAuthPage();
+            
+            // Clear forms
+            loginForm.reset();
+            registerForm.reset();
+        }
+
+        // Toggle search input
+        function toggleSearch() {
+            searchInput.classList.toggle('active');
+            if (searchInput.classList.contains('active')) {
+                searchInput.focus();
+            }
+        }
+
+        // Handle search
+        function handleSearch(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            if (searchTerm.length > 2) {
+                const filteredProducts = products.filter(product => 
+                    product.name.toLowerCase().includes(searchTerm)
+                );
+                renderProducts(filteredProducts);
+            } else if (searchTerm.length === 0) {
+                renderProducts(products);
+            }
+        }
+
+        // Handle profile update
+        function handleProfileUpdate(e) {
+            e.preventDefault();
+            
+            if (!currentUser) return;
+            
+            // Update user data
+            currentUser.name = profileNameInput.value;
+            currentUser.email = profileEmail.value;
+            currentUser.phone = profilePhone.value;
+            currentUser.address = profileAddress.value;
+            
+            // Update in users array
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            if (userIndex !== -1) {
+                users[userIndex] = currentUser;
+                localStorage.setItem('users', JSON.stringify(users));
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            }
+            
+            updateUserUI();
+            alert('Profile updated successfully!');
+            closeModal(profileModal);
+        }
+
+        // Handle checkout
+        function handleCheckout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty. Add some items first!');
+                return;
+            }
+            
+            closeModal(cartModal);
+            openModal(paymentModal);
+        }
+
+        // Handle payment
+        function handlePayment() {
+            if (cart.length === 0) {
+                alert('Your cart is empty.');
+                return;
+            }
+            
+            // In a real app, this would process the payment
+            alert('Payment successful! Thank you for your order.');
+            
+            // Clear cart
+            cart = [];
+            updateCartStorage();
+            updateCartUI();
+            
+            closeModal(paymentModal);
+        }
+
+        // Render products to the page
+        function renderProducts(productsToRender = products) {
+            productsGrid.innerHTML = '';
+            
+            if (productsToRender.length === 0) {
+                productsGrid.innerHTML = '<p style="text-align: center; grid-column: 1 / -1; padding: 40px;">No products found matching your search.</p>';
+                return;
+            }
+            
+            productsToRender.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                
+                const ratingStars = generateRatingStars(product.rating);
+                
+                productCard.innerHTML = `
+                    <div class="product-image">
+                        <img src="${product.image}" alt="${product.name}">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">${product.name}</h3>
+                        <div class="product-price">$${product.price.toFixed(2)}</div>
+                        <div class="product-rating">
+                            ${ratingStars}
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn add-to-cart" data-id="${product.id}">Add to Cart</button>
+                            <button class="btn-outline view-details" data-id="${product.id}">Details</button>
+                        </div>
+                    </div>
+                `;
+                
+                productsGrid.appendChild(productCard);
+            });
+            
+            // Add event listeners to product buttons
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const productId = parseInt(e.target.dataset.id);
+                    addToCart(productId);
+                });
+            });
+            
+            document.querySelectorAll('.view-details').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const productId = parseInt(e.target.dataset.id);
+                    viewProductDetails(productId);
+                });
+            });
+        }
+
+        // Generate star rating HTML
+        function generateRatingStars(rating) {
+            let stars = '';
+            const fullStars = Math.floor(rating);
+            const hasHalfStar = rating % 1 !== 0;
+            
+            for (let i = 0; i < fullStars; i++) {
+                stars += '<i class="fas fa-star"></i>';
+            }
+            
+            if (hasHalfStar) {
+                stars += '<i class="fas fa-star-half-alt"></i>';
+            }
+            
+            const emptyStars = 5 - Math.ceil(rating);
+            for (let i = 0; i < emptyStars; i++) {
+                stars += '<i class="far fa-star"></i>';
+            }
+            
+            return stars;
+        }
+
+        // View product details (placeholder)
+        function viewProductDetails(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                alert(`Product: ${product.name}\nPrice: $${product.price.toFixed(2)}\nRating: ${product.rating}/5\n\nThis is a premium ${product.name.toLowerCase()} with excellent features and customer reviews.`);
+            }
+        }
+
+        // Add product to cart
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    quantity: 1
+                });
+            }
+            
+            updateCartStorage();
+            updateCartUI();
+            
+            // Show success message
+            alert(`${product.name} added to cart!`);
+        }
+
+        // Remove product from cart
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartStorage();
+            updateCartUI();
+        }
+
+        // Update cart quantity
+        function updateCartQuantity(productId, newQuantity) {
+            if (newQuantity < 1) {
+                removeFromCart(productId);
+                return;
+            }
+            
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity = newQuantity;
+                updateCartStorage();
+                updateCartUI();
+            }
+        }
+
+        // Update cart in localStorage
+        function updateCartStorage() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+
+        // Update cart UI
+        function updateCartUI() {
+            cartItemsContainer.innerHTML = '';
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p style="text-align: center; padding: 20px;">Your cart is empty</p>';
+                cartCount.textContent = '0';
+                cartSubtotal.textContent = '$0.00';
+                cartShipping.textContent = '$0.00';
+                cartTax.textContent = '$0.00';
+                cartTotal.textContent = '$0.00';
+                return;
+            }
+            
+            let subtotal = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+                
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <div class="cart-item-image">
+                        <img src="${item.image}" alt="${item.name}">
+                    </div>
+                    <div class="cart-item-details">
+                        <div class="cart-item-title">${item.name}</div>
+                        <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+                    </div>
+                    <div class="cart-item-actions">
+                        <div class="quantity-control">
+                            <button class="quantity-btn decrease" data-id="${item.id}">-</button>
+                            <input type="text" class="quantity-input" value="${item.quantity}" data-id="${item.id}">
+                            <button class="quantity-btn increase" data-id="${item.id}">+</button>
+                        </div>
+                        <button class="remove-item" data-id="${item.id}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                
+                cartItemsContainer.appendChild(cartItem);
+            });
+            
+            // Add event listeners to cart items
+            document.querySelectorAll('.decrease').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const productId = parseInt(e.target.dataset.id);
+                    const item = cart.find(item => item.id === productId);
+                    if (item) {
+                        updateCartQuantity(productId, item.quantity - 1);
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.increase').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const productId = parseInt(e.target.dataset.id);
+                    const item = cart.find(item => item.id === productId);
+                    if (item) {
+                        updateCartQuantity(productId, item.quantity + 1);
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.quantity-input').forEach(input => {
+                input.addEventListener('change', (e) => {
+                    const productId = parseInt(e.target.dataset.id);
+                    const newQuantity = parseInt(e.target.value) || 1;
+                    updateCartQuantity(productId, newQuantity);
+                });
+            });
+            
+            document.querySelectorAll('.remove-item').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const productId = parseInt(e.target.closest('.remove-item').dataset.id);
+                    removeFromCart(productId);
+                });
+            });
+            
+            // Update cart summary
+            const shipping = subtotal > 0 ? 9.99 : 0;
+            const tax = subtotal * 0.08; // 8% tax
+            const total = subtotal + shipping + tax;
+            
+            cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartSubtotal.textContent = `$${subtotal.toFixed(2)}`;
+            cartShipping.textContent = `$${shipping.toFixed(2)}`;
+            cartTax.textContent = `$${tax.toFixed(2)}`;
+            cartTotal.textContent = `$${total.toFixed(2)}`;
+        }
+
+        // Update user UI
+        function updateUserUI() {
+            if (currentUser) {
+                profileName.textContent = currentUser.name;
+                profileEmailDisplay.textContent = currentUser.email;
+                
+                // Safely handle role display
+                if (currentUser.role) {
+                    profileRoleDisplay.textContent = `Role: ${currentUser.role.charAt(0).toUpperCase() + currentUser.role.slice(1)}`;
+                    profileRole.value = currentUser.role.charAt(0).toUpperCase() + currentUser.role.slice(1);
+                } else {
+                    // Default to 'user' if role is not defined
+                    profileRoleDisplay.textContent = 'Role: User';
+                    profileRole.value = 'User';
+                }
+                
+                profileNameInput.value = currentUser.name;
+                profileEmail.value = currentUser.email;
+                profilePhone.value = currentUser.phone || '';
+                profileAddress.value = currentUser.address || '';
+            } else {
+                profileName.textContent = 'Guest User';
+                profileEmailDisplay.textContent = 'Please log in';
+                profileRoleDisplay.textContent = '';
+                profileRole.value = '';
+            }
+        }
+
+        // Open modal
+        function openModal(modal) {
+            modal.classList.add('active');
+        }
+
+        // Close modal
+        function closeModal(modal) {
+            modal.classList.remove('active');
+        }
+
+        // Initialize the application when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
